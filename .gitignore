@@ -1,0 +1,4 @@
+webroot/*
+.vagrant/*
+.DS_Store
+VBoxGuestAdditions.iso
