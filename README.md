@@ -1,5 +1,5 @@
-# simple_webserver
-A simple webserver vagrant + ansible config files used for creating quick test instances.
+# Wordpress testbed
+A simple vagrant + ansible setup to start a local testbed
 
 
 ## Require Vagrant Plugin
