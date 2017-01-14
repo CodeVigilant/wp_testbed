@@ -3,24 +3,21 @@
   tasks: 
   - name: install packages essential for packages
     apt: pkg="{{ item }}" state=latest update_cache=yes
-    sudo: yes
+    become: yes
     with_items:
     - python-apt
     - python-pycurl
   - apt_key: url=http://www.dotdeb.org/dotdeb.gpg state=present
-    sudo: yes
+    become: yes
   - name: Configure backports
-    sudo: yes
-    apt_repository: repo="deb http://mirrors.linode.com/debian/ wheezy-backports main"
+    become: yes
+    apt_repository: repo="deb http://mirrors.linode.com/debian/ jessie-backports main"
   - name: Configure dotdeb
-    sudo: yes
-    apt_repository: repo="deb http://packages.dotdeb.org wheezy all"
-  - name: Configure dotdeb-php
-    sudo: yes
-    apt_repository: repo="deb http://packages.dotdeb.org wheezy-php55 all"
+    become: yes
+    apt_repository: repo="deb http://packages.dotdeb.org jessie all"
   - name: install packages essential for ansible+vagrant stuff
     apt: pkg="{{ item }}" state=latest update_cache=yes
-    sudo: yes
+    become: yes
     with_items:
     - acpi
     - adduser
@@ -50,7 +47,6 @@
     - coreutils
     - cpio
     - cpp
-    - cpp-4.7
     - cron
     - curl
     - dash
@@ -166,15 +162,15 @@
     - perl-base
     - perl-modules
     - php-pear
-    - php5
-    - php5-cgi
-    - php5-cli
-    - php5-common
-    - php5-curl
-    - php5-fpm
-    - php5-gd
-    - php5-mcrypt
-    - php5-mysqlnd
+    - php7.0
+    - php7.0-cgi
+    - php7.0-cli
+    - php7.0-common
+    - php7.0-curl
+    - php7.0-fpm
+    - php7.0-gd
+    - php7.0-mcrypt
+    - php7.0-mysqlnd
     - procmail
     - procps
     - psmisc
@@ -195,8 +191,6 @@
     - python-setuptools
     - python-soappy
     - python-support
-    - python2.6
-    - python2.6-minimal
     - python2.7
     - python2.7-minimal
     - rcconf
@@ -245,20 +239,20 @@
     - python-mysqldb
   - name: Copy nginx configuration for wordpress
     template: src=nginx/defconfig dest=/etc/nginx/sites-available/default
-    sudo: yes
+    become: yes
   - name: Copy PHP Configuration
-    template: src=php/php.ini dest=/etc/php5/fpm/php.ini
-    sudo: yes
+    template: src=php/php.ini dest=/etc/php/7.0/fpm/php.ini
+    become: yes
   - name: restart php
-    sudo: yes
-    service: name=php5-fpm state=restarted
+    become: yes
+    service: name=php7.0-fpm state=restarted
   - name: restart nginx
-    sudo: yes
+    become: yes
     service: name=nginx state=restarted
   - mysql_db: name=wp state=present
-    sudo: yes
+    become: yes
   - name: Install WP-CLI
-    sudo: yes
+    become: yes
     get_url: url="https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar" dest="/usr/bin/wp" mode=0755
   - name: Download wordpress into /webroot using wp[-cli]
     command: wp core download --path=/webroot/
