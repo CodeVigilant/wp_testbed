@@ -2,254 +2,68 @@
 - hosts: all
   tasks: 
   - name: install packages essential for packages
-    apt: pkg="{{ item }}" state=latest update_cache=yes
     become: yes
-    with_items:
-    - python-apt
-    - python-pycurl
-  - apt_key: url=http://www.dotdeb.org/dotdeb.gpg state=present
-    become: yes
-  - name: Configure backports
-    become: yes
-    apt_repository: repo="deb http://mirrors.linode.com/debian/ jessie-backports main"
-  - name: Configure dotdeb
-    become: yes
-    apt_repository: repo="deb http://packages.dotdeb.org jessie all"
+    apt: 
+        pkg:
+        - python-apt
+        - python-pycurl
+        state: latest 
+        update_cache: yes
   - name: install packages essential for ansible+vagrant stuff
-    apt: pkg="{{ item }}" state=latest update_cache=yes
     become: yes
-    with_items:
-    - acpi
-    - adduser
-    - apt
-    - apt-listchanges
-    - apt-utils
-    - aptitude
-    - aptitude-common
-    - at
-    - awstats
-    - base-files
-    - base-passwd
-    - bash
-    - bash-completion
-    - bc
-    - bind9-host
-    - binutils
-    - bsd-mailx
-    - bsdmainutils
-    - bsdutils
-    - build-essential
-    - busybox
-    - bzip2
-    - ca-certificates
-    - console-setup
-    - console-setup-linux
-    - coreutils
-    - cpio
-    - cpp
-    - cron
-    - curl
-    - dash
-    - db5.1-util
-    - dc
-    - debconf
-    - debconf-i18n
-    - debian-archive-keyring
-    - debian-faq
-    - debianutils
-    - dictionaries-common
-    - diffutils
-    - discover
-    - discover-data
-    - dmsetup
-    - dnsutils
-    - doc-debian
-    - dpkg
-    - dpkg-dev
-    - eject
-    - etckeeper
-    - exim4
-    - exim4-base
-    - exim4-config
-    - exim4-daemon-light
-    - fakeroot
-    - file
-    - findutils
-    - fontconfig-config
-    - ftp
-    - g++
-    - gcc
-    - gettext-base
-    - git
-    - git-man
-    - gnupg
-    - gpgv
-    - grep
-    - groff-base
-    - guile-1.8-libs
-    - gzip
-    - host
-    - hostname
-    - htop
-    - iamerican
-    - ibritish
-    - ienglish-common
-    - ifupdown
-    - info
-    - initramfs-tools
-    - initscripts
-    - insserv
-    - iotop
-    - iproute
-    - iptables
-    - iptables-persistent
-    - iputils-ping
-    - isc-dhcp-client
-    - isc-dhcp-common
-    - iso-codes
-    - ispell
-    - kbd
-    - keyboard-configuration
-    - klibc-utils
-    - kmod
-    - krb5-locales
-    - less
-    - locales
-    - lockfile-progs
-    - login
-    - logrotate
-    - lsb-base
-    - lsb-release
-    - lsof
-    - m4
-    - mailutils
-    - mailutils-common
-    - make
-    - man-db
-    - manpages
-    - manpages-dev
-    - mawk
-    - menu
-    - mime-support
-    - mlocate
-    - module-init-tools
-    - mount
-    - mtr-tiny
-    - multiarch-support
-    - mysql-common
-    - mysql-server
-    - nano
-    - ncurses-base
-    - ncurses-bin
-    - ncurses-term
-    - net-tools
-    - netbase
-    - netcat-traditional
-    - nfs-common
-    - nginx-common
-    - nginx-extras
-    - ntp
-    - ntpdate
-    - openssh-blacklist
-    - openssh-blacklist-extra
-    - openssh-client
-    - openssh-server
-    - openssl
-    - passwd
-    - patch
-    - pciutils
-    - perl
-    - perl-base
-    - perl-modules
-    - php-pear
-    - php7.0
-    - php7.0-cgi
-    - php7.0-cli
-    - php7.0-common
-    - php7.0-curl
-    - php7.0-fpm
-    - php7.0-gd
-    - php7.0-mcrypt
-    - php7.0-mysqlnd
-    - procmail
-    - procps
-    - psmisc
-    - python
-    - python-apt
-    - python-apt-common
-    - python-chardet
-    - python-daemon
-    - python-debian
-    - python-debianbts
-    - python-fpconst
-    - python-lockfile
-    - python-minimal
-    - python-pip
-    - python-pkg-resources
-    - python-reportbug
-    - python-setproctitle
-    - python-setuptools
-    - python-soappy
-    - python-support
-    - python2.7
-    - python2.7-minimal
-    - rcconf
-    - readline-common
-    - reportbug
-    - rpcbind
-    - rsync
-    - rsyslog
-    - screen
-    - sed
-    - sensible-utils
-    - sgml-base
-    - sudo
-    - sysstat
-    - sysv-rc
-    - sysvinit
-    - sysvinit-utils
-    - tar
-    - task-english
-    - task-ssh-server
-    - tasksel
-    - tasksel-data
-    - tcpd
-    - telnet
-    - texinfo
-    - time
-    - tofrodos
-    - traceroute
-    - ttf-dejavu-core
-    - tzdata
-    - ucf
-    - udev
-    - unzip
-    - util-linux
-    - vim
-    - vim-common
-    - vim-runtime
-    - w3m
-    - wamerican
-    - wget
-    - whiptail
-    - whois
-    - xkb-data
-    - xml-core
-    - xz-utils
-    - python-mysqldb
+    apt: 
+        pkg: 
+        - mtr-tiny
+        - mysql-common
+        - mysql-server
+        - net-tools
+        - netbase
+        - netcat-traditional
+        - nfs-common
+        - nginx-common
+        - nginx-extras
+        - openssh-client
+        - openssh-server
+        - php-pear
+        - php7.4
+        - php7.4-cgi
+        - php7.4-cli
+        - php7.4-common
+        - php7.4-curl
+        - php7.4-fpm
+        - php7.4-gd
+        - php7.4-mysqlnd
+        - procmail
+        - unzip
+        - util-linux
+        - vim
+        - vim-common
+        - vim-runtime
+        - wget
+        - python3-mysqldb
+        state: latest 
+        update_cache: yes
+
   - name: Copy nginx configuration for wordpress
     template: src=nginx/defconfig dest=/etc/nginx/sites-available/default
     become: yes
   - name: Copy PHP Configuration
-    template: src=php/php.ini dest=/etc/php/7.0/fpm/php.ini
+    template: src=php/php.ini dest=/etc/php/7.4/fpm/php.ini
     become: yes
   - name: restart php
     become: yes
-    service: name=php7.0-fpm state=restarted
+    service: name=php7.4-fpm state=restarted
   - name: restart nginx
     become: yes
     service: name=nginx state=restarted
   - mysql_db: name=wp state=present
+    become: yes
+  - name: Create database user with name 'bob' and password '12345' with all database privileges
+    community.mysql.mysql_user:
+        name: bob
+        password: 12345
+        priv: '*.*:ALL'
+        state: present
     become: yes
   - name: Install WP-CLI
     become: yes
@@ -258,8 +72,22 @@
     command: wp core download --path=/webroot/
     ignore_errors: True
   - name: Configure Wordpress
-    command: wp core config --path=/webroot/ --dbname="wp" --dbuser="root"  --dbprefix="local_"
+    command: wp core config --path=/webroot/ --dbname="wp" --dbuser="bob" --dbpass="12345"  --dbprefix="local_"
     ignore_errors: True
+  - debug:
+      msg: "{{ansible_all_ipv4_addresses | difference([ansible_default_ipv4.address]) | first }}"
   - name: Install wordpress
-    command: wp core install --path=/webroot/ --url=http://{{ ansible_eth1.ipv4.address }}/ --title="DevBox" --admin_user=root --admin_password=password --admin_email=root@localhost.com
+    command: wp core install --path=/webroot/ --url=http://{{ansible_all_ipv4_addresses | difference([ansible_default_ipv4.address]) | first }}/ --title="DevBox" --admin_user=admin --admin_password=password --admin_email=admin@localhost.com
+    ignore_errors: True
+  - name: Create Editor
+    command: wp --path=/webroot/ user create editor editor@localhost.com --role=editor --user_pass=password
+    ignore_errors: True
+  - name: Create Author
+    command: wp --path=/webroot/ user create author author@localhost.com --role=author --user_pass=password
+    ignore_errors: True
+  - name: Create subscriber
+    command: wp --path=/webroot/ user create subscriber subscriber@localhost.com --role=subscriber --user_pass=password
+    ignore_errors: True
+  - name: Create Contributor
+    command: wp --path=/webroot/ user create contributor contributor@localhost.com --role=contributor --user_pass=password
     ignore_errors: True
